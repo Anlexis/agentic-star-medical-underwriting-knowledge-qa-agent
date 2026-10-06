@@ -1,0 +1,17 @@
+# Runtime parameters — loaded by the registry and passed as Graph(config=...).
+# Separate from config/agent.yaml, which is the static manifest.
+#
+# The standalone entry point reads this same file (src/graph/graph.py
+# runtime_config) and hands it to the graph, so a value declared here has the
+# same effect however the agent is started. Each value is range-checked on read;
+# one outside its range is not forwarded, and the consumer keeps its documented
+# default rather than acting on a malformed declaration.
+
+# Retry budget for the backbone's routing decision. Must be a whole number in
+# [0, 9]; the framework refuses anything at or above its own ceiling of 10.
+max_retry: 3
+
+# Request time budget, in seconds, in the range [1, 600]. Declared for parity
+# with the platform's runtime parameter set: neither the framework nor this
+# template reads it today, so changing it has no effect on behaviour.
+timeout_s: 30
